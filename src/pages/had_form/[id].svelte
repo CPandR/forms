@@ -84,26 +84,21 @@
     <div class="container mx-auto mt-1">
       <h1 class="text-3xl font-bold">HAD Scale Form</h1>
       <div class="bg-white-300 my-3">
-        <p>
+        <p class="mb-3">
           Here at CP+R® we are aware that emotions and how you feel play an
           important part in your overall health.
-        </p>
-
-        <p>
           Knowing more about how you feel will ensure that we are able to help
           you as effectively as possible. Read each item and tick the box that
           comes closest to how you have been feeling in the past week.
         </p>
-
-        <p>
+        <p class="mb-5">
           Don’t take too long over your replies; your immediate reaction to each
           item will probably be more accurate than a long thought-out response.
         </p>
       </div>
-
       <form on:submit|preventDefault={submit}>
         {#each had_form as question, x}
-          <div class="mb-2">
+          <div class="mb-7">
             <h2 class="text-2xl font-bold">{question.title}</h2>
             {#each question.options as option, y}
               <RadioInput
