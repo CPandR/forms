@@ -62,6 +62,23 @@
     },
   ];
 
+  const form_responses = {
+    question_1: "",
+    question_2: "",
+    question_3: "",
+    question_4: "",
+    question_5: "",
+    question_6: "",
+    question_7: "",
+    question_8: "",
+    question_9: "",
+    question_10: "",
+    question_11: "",
+    question_12: "",
+    question_13: "",
+    question_14: "",
+  };
+
   const validateID = (async () => {
     const { id } = $params;
 
@@ -125,20 +142,17 @@
       {#each form_data as question}
         <div class="mb-2">
           <h2 class="text-2xl font-bold">{question.title}</h2>
-          <div class="flex flex-wrap">
-            {#each question.options as option}
-              <div class="w-1/3">
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  id={`{question.title}-${option}`}
-                  name={`{question.title}`}
-                  value={`{option}`}
-                />
-                <label for={`{question.title}-${option}`}>{option}</label>
-              </div>
-            {/each}
-          </div>
+          {#each question.options as option, i}
+            <div>
+              <input
+                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="radio"
+                name={`${question.title}`}
+                value={i}
+              />
+              <label for={`${question.title}-${option}`}>{option}</label>
+            </div>
+          {/each}
         </div>
       {/each}
     </form>
