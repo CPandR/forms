@@ -60,6 +60,50 @@
       title: "I can sit at ease and feel relaxed",
       options: ["Definitely", "Usually", "Not often", "Not at all"],
     },
+    {
+      title: "I feel as if I am slowed down",
+      options: ["All the time", "Often", "Sometimes", "Not at all"],
+    },
+    {
+      title:
+        "I get a sort of frightened feeling like “butterflies” in the stomach",
+      options: ["Not at all", "Occasionally", "Quite often", "All the time"],
+    },
+    {
+      title: "I have lost interest and put less effort into my appearance",
+      options: [
+        "Definitely",
+        "Often",
+        "Sometimes",
+        "I take just as much care as ever",
+      ],
+    },
+    {
+      title: "I feel restless as if I have to be on the move",
+      options: [
+        "Very much indeed",
+        "Quite a lot",
+        "Not very much",
+        "Not at all",
+      ],
+    },
+    {
+      title: "I look forward with enjoyment to things",
+      options: [
+        "As much as I ever did",
+        "Rather less than I used to",
+        "Definitely less than I used to",
+        "Hardly at all",
+      ],
+    },
+    {
+      title: "I get sudden feelings of panic",
+      options: ["All the time", "Quite often", "Not very often", "Not at all"],
+    },
+    {
+      title: "I can relax and enjoy a good book or radio or TV programme",
+      options: ["Often", "Sometimes", "Not often", "Rarely"],
+    },
   ];
 
   const form_responses = {
@@ -93,7 +137,7 @@
   })();
 
   const submit = () => {
-    console.log(form_data);
+    console.log(form_responses);
     console.log("I'm the validate() function");
   };
 </script>
@@ -129,32 +173,26 @@
     </div>
 
     <form on:submit|preventDefault={submit}>
-      <label>
-        <input
-          type="radio"
-          name="question_1"
-          value={4}
-          bind:group={form_data["question_1"]}
-        />
-        Hi
-      </label>
-
-      {#each form_data as question}
+      {#each form_data as question, x}
         <div class="mb-2">
           <h2 class="text-2xl font-bold">{question.title}</h2>
-          {#each question.options as option, i}
+          {#each question.options as option, y}
             <div>
-              <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="radio"
-                name={`${question.title}`}
-                value={i}
-              />
-              <label for={`${question.title}-${option}`}>{option}</label>
+              <label>
+                <input
+                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="radio"
+                  name={`${question.title}`}
+                  value={y}
+                  bind:group={form_responses[`question_${x}`]}
+                />
+                {option}
+              </label>
             </div>
           {/each}
         </div>
       {/each}
+      <button type="submit">Submit</button>
     </form>
   </div>
 {:catch error}
