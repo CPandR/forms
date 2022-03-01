@@ -138,7 +138,7 @@
   </div>
 {:then}
   <div class="container mx-auto mt-1">
-    <h1 class="text-3xl font-bold my-1">HAD Scale</h1>
+    <h1 class="text-3xl font-bold my-1">HAD Scale Form</h1>
     <div class="bg-white-300">
       <p>
         Here at CP+R® we are aware that emotions and how you feel play an

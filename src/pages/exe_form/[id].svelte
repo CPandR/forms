@@ -94,7 +94,7 @@
   </div>
 {:then}
   <div class="container mx-auto mt-1">
-    <h1 class="text-3xl font-bold my-1">HAD Scale</h1>
+    <h1 class="text-3xl font-bold my-1">Exercise & Confidence Form</h1>
     <div class="bg-white-300">
       <p>
         Knowing more about how you feel about right now will ensure that we are
