@@ -1,7 +1,7 @@
 <script>
   export let name;
   export let value;
-  export let group;
+  export let group = undefined;
   export let label;
 </script>
 

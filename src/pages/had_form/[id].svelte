@@ -62,27 +62,12 @@
         <div class="mb-2">
           <h2 class="text-2xl font-bold">{question.title}</h2>
           {#each question.options as option, y}
-            <!-- <div>
-              <label>
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name={`${question.title}`}
-                  value={y}
-                  bind:group={form_responses[`question_${x}`]}
-                  required
-                />
-                {option}
-              </label>
-            </div> -->
-            <div>
-              <RadioInput
-                name={question.title}
-                value={y}
-                bind:group={form_responses[`question_${x}`]}
-                label={option}
-              />
-            </div>
+            <RadioInput
+              name={question.title}
+              value={y}
+              bind:group={form_responses[`question_${x}`]}
+              label={option}
+            />
           {/each}
         </div>
       {/each}
