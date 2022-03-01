@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import { had_form } from "./had_questions.js";
   import RadioInput from "../../components/RadioInput.svelte";
-  import ErrorToast from "../../components/ErrorToast.svelte";
+  import ErrorNotification from "../../components/ErrorNotification.svelte";
 
   metatags.title = "HAD Form";
 
@@ -54,7 +54,7 @@
       })
       .catch(() => {
         // create new error toast
-        new ErrorToast({
+        new ErrorNotification({
           target: document.body,
           props: {
             error_message:
