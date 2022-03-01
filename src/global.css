@@ -1,7 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
+}
+
+@font-face {
+	font-family: 'Nunito';
+    src: url('../fonts/Nunito-Regular.eot');
+    src: local('Nunito Regular'), local('Nunito-Regular'),
+	url('../fonts/Nunito-Regular.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/Nunito-Regular.woff') format('woff'), url('../fonts/Nunito-Regular.ttf') format('truetype'),
+	url('../fonts/Nunito-Regular.svg#Roboto') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Nunito';
+    src: url('../fonts/Nunito-SemiBold.eot');
+    src: local('Nunito SemiBold'), local('Nunito-SemiBold'),
+	url('../fonts/Nunito-SemiBold.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/Nunito-SemiBold.woff') format('woff'), url('../fonts/Nunito-SemiBold.ttf') format('truetype'),
+	url('../fonts/Nunito-SemiBold.svg#Roboto') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Nunito';
+    src: url('../fonts/Nunito-Bold.eot');
+    src: local('Nunito Bold'), local('Nunito-Bold'), url('../fonts/Nunito-Bold.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/Nunito-Bold.woff') format('woff'), url('../fonts/Nunito-Bold.ttf') format('truetype'),
+	url('../fonts/Nunito-Bold.svg#Roboto') format('svg');
+    font-weight: 700;
+    font-style: normal;
 }
 
 body {
@@ -9,58 +45,6 @@ body {
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-family: "Nunito", sans-serif;
 }
 
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:visited {
-	color: rgb(0,80,160);
-}
-
-label {
-	display: block;
-}
-
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
-}
-
-input:disabled {
-	color: #ccc;
-}
-
-input[type="range"] {
-	height: 0;
-}
-
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
-}
-
-button:disabled {
-	color: #999;
-}
-
-button:not(:disabled):active {
-	background-color: #ddd;
-}
-
-button:focus {
-	border-color: #666;
-}
