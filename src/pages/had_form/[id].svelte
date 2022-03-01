@@ -180,13 +180,11 @@
       <button type="submit">Submit</button>
     </form>
   </div>
-{:catch error}
-  <div class="grid place-items-center h-screen">
-    <div
-      class="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full"
-      role="status"
-    >
-      <span class="visually-hidden">Loading...</span>
-    </div>
+{:catch}
+  <div>
+    <p>
+      We were unable to find a form linked to this address. Please contact your
+      cardiac coach if this problem persists.
+    </p>
   </div>
 {/await}
