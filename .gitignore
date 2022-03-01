@@ -2,3 +2,6 @@ node_modules
 .routify
 .history
 dist
+.env
+.env.development
+.env.production
