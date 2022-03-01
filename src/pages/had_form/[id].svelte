@@ -38,8 +38,8 @@
   </div>
 {:then}
   <div class="container mx-auto mt-1">
-    <h1 class="text-3xl font-bold my-1">HAD Scale Form</h1>
-    <div class="bg-white-300">
+    <h1 class="text-3xl font-bold">HAD Scale Form</h1>
+    <div class="bg-white-300 my-3">
       <p>
         Here at CP+R® we are aware that emotions and how you feel play an
         important part in your overall health.
@@ -71,7 +71,12 @@
           {/each}
         </div>
       {/each}
-      <button class="bg-yellow-300 py-1 px-2 my-2" type="submit">Submit</button>
+      <div class="flex">
+        <button
+          class="bg-yellow-300 py-1 px-2 mt-2 mb-7 mx-auto text-lg"
+          type="submit">Submit</button
+        >
+      </div>
     </form>
   </div>
 {:catch}
