@@ -65,7 +65,7 @@
             <RadioInput
               name={question.title}
               value={y}
-              bind:group={form_responses[`question_${x}`]}
+              bind:group={form_responses[`q_${x + 1}`]}
               label={option}
             />
           {/each}
