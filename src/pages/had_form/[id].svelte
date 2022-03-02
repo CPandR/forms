@@ -16,7 +16,6 @@
   const { id } = $params;
 
   let submitting = false;
-
   let show_success = false;
 
   const validateID = (async () => {
@@ -37,7 +36,6 @@
       return acc + cur;
     }, 0);
 
-    // make a post request to the server
     fetch(`${import.meta.env.VITE_PROD}/submit_had_form/${id}`, {
       method: "POST",
       headers: {
@@ -106,7 +104,7 @@
             {/each}
           </div>
         {/each}
-        <SubmitButton />
+        <SubmitButton {submitting} />
       </form>
     </div>
   {:catch}
