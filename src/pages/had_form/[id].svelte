@@ -9,7 +9,7 @@
   import SubmitButton from "../../components/SubmitButton.svelte";
   import ErrorPage from "../../components/ErrorPage.svelte";
 
-  metatags.title = "HAD Form";
+  metatags.title = "HADS | CP+R";
 
   const form_responses = {};
   const { id } = $params;

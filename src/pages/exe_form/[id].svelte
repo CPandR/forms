@@ -10,7 +10,7 @@
   import SubmitButton from "../../components/SubmitButton.svelte";
   import ErrorPage from "../../components/ErrorPage.svelte";
 
-  metatags.title = "Exercise Form";
+  metatags.title = "Exercise + Confidence | CP+R";
 
   const { id } = $params;
   const form_responses = {};
@@ -74,7 +74,7 @@
     <LoadingSpinner />
   {:then}
     <div class="container mx-auto mt-1">
-      <h1 class="text-3xl font-bold">Exercise & Confidence Form</h1>
+      <h1 class="text-3xl font-bold">Exercise + Confidence Form</h1>
       <div class="bg-white-300 my-3">
         <p class="mb-3">
           Knowing more about how you feel about right now will ensure that we
