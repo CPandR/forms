@@ -95,7 +95,7 @@
 
       <form on:submit|preventDefault={submit}>
         {#each exe_form as question, x}
-          <div class="mb-2">
+          <div class="mb-7" aria-label="radiogroup">
             <h2 class="text-2xl font-bold">{question.title}</h2>
             {#each question.options as option, y}
               <RadioInput
@@ -109,14 +109,17 @@
         {/each}
         <div class="flex">
           <button
-            class="bg-yellow-300 py-1 px-2 mb-7 mx-auto text-lg flex items-center"
+            class="{submitting
+              ? 'bg-black text-white'
+              : null} transition ease-in-out outline outline-1 py-1.5 px-3 mb-7 text-lg flex items-center hover:ease-in focus:bg-black focus:text-white hover:bg-black hover:text-white duration-300 focus:ring focus:ring-blue-300 {submitting}"
             type="submit"
+            aria-label="Submit Form"
             disabled={submitting}
           >
             Submit
-            {#if submitting}
+            {#if !submitting}
               <div
-                class="ml-2 spinner-border animate-spin inline-block w-6 h-6 border-3 rounded-full text-white"
+                class="ml-2 spinner-border animate-spin inline-block w-5 h-5 border-2 rounded-full text-white"
                 role="status"
               >
                 <span class="visually-hidden">Loading...</span>

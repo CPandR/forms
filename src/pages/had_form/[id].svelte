@@ -6,6 +6,7 @@
   import RadioInput from "../../components/RadioInput.svelte";
   import ErrorNotification from "../../components/ErrorNotification.svelte";
   import SuccessPage from "../../components/SuccessPage.svelte";
+  import LoadingSpinner from "../../components/LoadingSpinner.svelte";
 
   metatags.title = "HAD Form";
 
@@ -72,14 +73,7 @@
   <SuccessPage />
 {:else}
   {#await validateID}
-    <div class="flex items-center justify-center">
-      <div
-        class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-        role="status"
-      >
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
+    <LoadingSpinner />
   {:then}
     <div class="container mx-auto mt-1">
       <h1 class="text-3xl font-bold">HAD Scale Form</h1>
@@ -112,7 +106,7 @@
         {/each}
         <div class="flex">
           <button
-            class="bg-yellow-300 py-1 px-2 mb-7 mx-auto text-lg flex items-center"
+            class="bg-yellow-300 py-1 px-2 mb-7 text-lg flex items-center"
             type="submit"
             disabled={submitting}
           >
