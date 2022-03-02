@@ -7,6 +7,7 @@
   import ErrorNotification from "../../components/ErrorNotification.svelte";
   import SuccessPage from "../../components/SuccessPage.svelte";
   import LoadingSpinner from "../../components/LoadingSpinner.svelte";
+  import SubmitButton from "../../components/SubmitButton.svelte";
 
   metatags.title = "HAD Form";
 
@@ -104,23 +105,7 @@
             {/each}
           </div>
         {/each}
-        <div class="flex">
-          <button
-            class="bg-yellow-300 py-1 px-2 mb-7 text-lg flex items-center"
-            type="submit"
-            disabled={submitting}
-          >
-            Submit
-            {#if submitting}
-              <div
-                class="ml-2 spinner-border animate-spin inline-block w-6 h-6 border-3 rounded-full text-white"
-                role="status"
-              >
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            {/if}
-          </button>
-        </div>
+        <SubmitButton />
       </form>
     </div>
   {:catch}
