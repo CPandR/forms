@@ -1,8 +1,8 @@
 <script>
   import { metatags } from "@roxi/routify";
+  import ErrorPage from "../components/ErrorPage.svelte";
 
-  metatags.title = "My Routify app";
-  metatags.description = "Description coming soon...";
+  metatags.title = "CP+R";
 </script>
 
-<h1>Routify Starter Template</h1>
+<ErrorPage />
