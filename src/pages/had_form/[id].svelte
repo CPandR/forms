@@ -8,6 +8,7 @@
   import SuccessPage from "../../components/SuccessPage.svelte";
   import LoadingSpinner from "../../components/LoadingSpinner.svelte";
   import SubmitButton from "../../components/SubmitButton.svelte";
+  import ErrorPage from "../../components/ErrorPage.svelte";
 
   metatags.title = "HAD Form";
 
@@ -109,11 +110,8 @@
       </form>
     </div>
   {:catch}
-    <div>
-      <p>
-        We were unable to find a form linked to this address. Please contact
-        your cardiac coach if this problem persists.
-      </p>
-    </div>
+    <ErrorPage
+      error_message={"We were unable to find a form linked to this address. Please contact your cardiac coach if this problem persists."}
+    />
   {/await}
 {/if}
