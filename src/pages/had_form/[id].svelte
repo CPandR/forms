@@ -1,7 +1,6 @@
 <script>
   import { metatags } from "@roxi/routify";
   import { params } from "@roxi/routify";
-  import { onMount } from "svelte";
   import { had_form } from "./had_questions.js";
   import RadioInput from "../../components/RadioInput.svelte";
   import ErrorNotification from "../../components/ErrorNotification.svelte";
