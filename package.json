@@ -1,5 +1,5 @@
 {
-    "name": "routify-starter",
+    "name": "forms",
     "private": true,
     "scripts": {
         "dev": "run-p dev:*",
