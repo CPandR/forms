@@ -1,7 +1,7 @@
 <script>
   import { metatags } from "@roxi/routify";
   import { params } from "@roxi/routify";
-  import { had_form } from "./had_questions.js";
+  import { had_form } from "../../questions/had_questions.js";
   import RadioInput from "../../components/RadioInput.svelte";
   import ErrorNotification from "../../components/ErrorNotification.svelte";
   import SuccessPage from "../../components/SuccessPage.svelte";
