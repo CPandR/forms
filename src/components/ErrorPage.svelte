@@ -5,7 +5,7 @@
 </script>
 
 <div class="error w-full flex flex-col items-center">
-  <div class="text-5xl mb-4">Uh oh!</div>
+  <div class="text-5xl mb-4 font-bold">Uh oh!</div>
   <p class="description">
     {error_message}
   </p>
