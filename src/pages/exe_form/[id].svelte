@@ -2,65 +2,11 @@
   import { metatags } from "@roxi/routify";
   import { params } from "@roxi/routify";
   import { onMount } from "svelte";
+  import { exe_form } from "./exe_questions";
+  import RadioInput from "../../components/RadioInput.svelte";
+  import ErrorNotification from "../../components/ErrorNotification.svelte";
 
   metatags.title = "Exercise Form";
-
-  const form_data = [
-    {
-      title: "How confident do you feel about exercising?",
-      options: ["Excellent", "Very Good", "Good", "Fair", "Poor"],
-    },
-    {
-      title: "How would you rate your overall general confidence level?",
-      options: ["Excellent", "Very Good", "Good", "Fair", "Poor"],
-    },
-    {
-      title: "How would you rate your current overall health?",
-      options: ["Excellent", "Very Good", "Good", "Fair", "Poor"],
-    },
-    {
-      title: "How much of your time do you focus specifically on your health?",
-      options: ["All", "A lot", "Some", "Not Much", "None"],
-    },
-    {
-      title:
-        "What is the hardest physical activity you could do for at least 30 minutes?",
-      options: [
-        "Very heavy e.g. Fast walk up a slight hill/jog/fast cycle",
-        "Heavy e.g. Fast walk",
-        "Moderate e.g. Medium pace walk up hill",
-        "Light e.g. Medium pace walk",
-        "Very Light e.g. Slow walk or less",
-      ],
-    },
-    {
-      title:
-        "When walking up stairs, how many flights could you do continuously before feeling out of breath?",
-      options: ["4 or more", "3", "2", "1", "None"],
-    },
-    {
-      title:
-        "How much are you bothered by stress, emotional problems such as feeling anxious, depressed, irritable or sad?",
-      options: [
-        "Not at all",
-        "Slightly",
-        "Moderate",
-        "Quite a bit",
-        "Extremely",
-      ],
-    },
-    {
-      title:
-        "Does your physical or emotional health limit your social activities with family and friends?",
-      options: [
-        "Not at all",
-        "Slightly",
-        "Moderate",
-        "Quite a bit",
-        "Extremely",
-      ],
-    },
-  ];
 
   const form_responses = {};
 
@@ -110,22 +56,16 @@
     </div>
 
     <form on:submit|preventDefault={submit}>
-      {#each form_data as question, x}
+      {#each exe_form as question, x}
         <div class="mb-2">
           <h2 class="text-2xl font-bold">{question.title}</h2>
           {#each question.options as option, y}
-            <div>
-              <label>
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name={`${question.title}`}
-                  value={y}
-                  bind:group={form_responses[`question_${x}`]}
-                />
-                {option}
-              </label>
-            </div>
+            <RadioInput
+              name={question.title}
+              value={y}
+              bind:group={form_responses[`q${x + 1}`]}
+              label={option}
+            />
           {/each}
         </div>
       {/each}

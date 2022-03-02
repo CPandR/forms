@@ -142,5 +142,3 @@
     </div>
   {/await}
 {/if}
-
-<!-- create new ErrorToast on error -->
