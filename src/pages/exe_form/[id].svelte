@@ -78,14 +78,14 @@
     </div>
   {:then}
     <div class="container mx-auto mt-1">
-      <h1 class="text-3xl font-bold my-1">Exercise & Confidence Form</h1>
-      <div class="bg-white-300">
-        <p>
+      <h1 class="text-3xl font-bold">Exercise & Confidence Form</h1>
+      <div class="bg-white-300 my-3">
+        <p class="mb-3">
           Knowing more about how you feel about right now will ensure that we
           are able to help you more effectively during your programme.
         </p>
 
-        <p>
+        <p class="mb-5">
           Read each item and tick the box that comes closest to how you have
           been feeling in the past 2 weeks. Don’t take too long over your
           replies; your immediate reaction to each item will probably be more
@@ -116,8 +116,8 @@
             aria-label="Submit Form"
             disabled={submitting}
           >
-            Submit
-            {#if !submitting}
+            {submitting ? "Submitting" : "Submit"}
+            {#if submitting}
               <div
                 class="ml-2 spinner-border animate-spin inline-block w-5 h-5 border-2 rounded-full text-white"
                 role="status"
