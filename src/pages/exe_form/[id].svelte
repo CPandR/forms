@@ -20,10 +20,10 @@
     const response = await fetch(
       `${import.meta.env.VITE_PROD}/validate_user/${id}`
     );
-    if (response.status === 200) {
+    if (response.status === 202) {
       return true;
     } else {
-      throw new Error(response.statusText);
+      throw new Error();
     }
   })();
 
