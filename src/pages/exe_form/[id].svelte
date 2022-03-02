@@ -5,14 +5,16 @@
   import { exe_form } from "./exe_questions";
   import RadioInput from "../../components/RadioInput.svelte";
   import ErrorNotification from "../../components/ErrorNotification.svelte";
+  import SuccessPage from "../../components/SuccessPage.svelte";
 
   metatags.title = "Exercise Form";
 
+  const { id } = $params;
   const form_responses = {};
+  let show_success = false;
+  let submitting = false;
 
   const validateID = (async () => {
-    const { id } = $params;
-
     const response = await fetch(
       `${import.meta.env.VITE_PROD}/validate_user/${id}`
     );
@@ -24,59 +26,112 @@
   })();
 
   const submit = () => {
-    console.log(form_responses);
-    console.log("I'm the validate() function");
+    submitting = true;
+    const total = Object.values(form_responses).reduce((acc, cur) => {
+      return acc + cur;
+    }, 0);
+
+    fetch(`${import.meta.env.VITE_PROD}/submit_exe_form/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        total,
+        form_responses,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          show_success = true;
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .catch(() => {
+        // create new error toast
+        new ErrorNotification({
+          target: document.body,
+          props: {
+            error_message:
+              "There was an error submitting your form. Please contact your cardiac coach if this error persists.",
+          },
+        });
+      })
+      .finally(() => {
+        submitting = false;
+      });
   };
 </script>
 
-{#await validateID}
-  <div class="flex items-center justify-center">
-    <div
-      class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-      role="status"
-    >
-      <span class="visually-hidden">Loading...</span>
+{#if show_success}
+  <SuccessPage />
+{:else}
+  {#await validateID}
+    <div class="flex items-center justify-center">
+      <div
+        class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
-  </div>
-{:then}
-  <div class="container mx-auto mt-1">
-    <h1 class="text-3xl font-bold my-1">Exercise & Confidence Form</h1>
-    <div class="bg-white-300">
-      <p>
-        Knowing more about how you feel about right now will ensure that we are
-        able to help you more effectively during your programme.
-      </p>
+  {:then}
+    <div class="container mx-auto mt-1">
+      <h1 class="text-3xl font-bold my-1">Exercise & Confidence Form</h1>
+      <div class="bg-white-300">
+        <p>
+          Knowing more about how you feel about right now will ensure that we
+          are able to help you more effectively during your programme.
+        </p>
 
-      <p>
-        Read each item and tick the box that comes closest to how you have been
-        feeling in the past 2 weeks. Don’t take too long over your replies; your
-        immediate reaction to each item will probably be more accurate than a
-        long thought-out response.
-      </p>
-    </div>
+        <p>
+          Read each item and tick the box that comes closest to how you have
+          been feeling in the past 2 weeks. Don’t take too long over your
+          replies; your immediate reaction to each item will probably be more
+          accurate than a long thought-out response.
+        </p>
+      </div>
 
-    <form on:submit|preventDefault={submit}>
-      {#each exe_form as question, x}
-        <div class="mb-2">
-          <h2 class="text-2xl font-bold">{question.title}</h2>
-          {#each question.options as option, y}
-            <RadioInput
-              name={question.title}
-              value={y}
-              bind:group={form_responses[`q${x + 1}`]}
-              label={option}
-            />
-          {/each}
+      <form on:submit|preventDefault={submit}>
+        {#each exe_form as question, x}
+          <div class="mb-2">
+            <h2 class="text-2xl font-bold">{question.title}</h2>
+            {#each question.options as option, y}
+              <RadioInput
+                name={question.title}
+                value={y}
+                bind:group={form_responses[`q${x + 1}`]}
+                label={option}
+              />
+            {/each}
+          </div>
+        {/each}
+        <div class="flex">
+          <button
+            class="bg-yellow-300 py-1 px-2 mb-7 mx-auto text-lg flex items-center"
+            type="submit"
+            disabled={submitting}
+          >
+            Submit
+            {#if submitting}
+              <div
+                class="ml-2 spinner-border animate-spin inline-block w-6 h-6 border-3 rounded-full text-white"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            {/if}
+          </button>
         </div>
-      {/each}
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-{:catch}
-  <div>
-    <p>
-      We were unable to find a form linked to this address. Please contact your
-      cardiac coach if this problem persists.
-    </p>
-  </div>
-{/await}
+      </form>
+    </div>
+  {:catch}
+    <div>
+      <p>
+        We were unable to find a form linked to this address. Please contact
+        your cardiac coach if this problem persists.
+      </p>
+    </div>
+  {/await}
+{/if}

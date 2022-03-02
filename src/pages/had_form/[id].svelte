@@ -5,6 +5,7 @@
   import { had_form } from "./had_questions.js";
   import RadioInput from "../../components/RadioInput.svelte";
   import ErrorNotification from "../../components/ErrorNotification.svelte";
+  import SuccessPage from "../../components/SuccessPage.svelte";
 
   metatags.title = "HAD Form";
 
@@ -40,9 +41,8 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: $params.id,
-        form_responses,
         total,
+        form_responses,
       }),
     })
       .then((response) => {
@@ -69,7 +69,7 @@
 </script>
 
 {#if show_success}
-  Success!
+  <SuccessPage />
 {:else}
   {#await validateID}
     <div class="flex items-center justify-center">
@@ -86,10 +86,10 @@
       <div class="bg-white-300 my-3">
         <p class="mb-3">
           Here at CP+R® we are aware that emotions and how you feel play an
-          important part in your overall health.
-          Knowing more about how you feel will ensure that we are able to help
-          you as effectively as possible. Read each item and tick the box that
-          comes closest to how you have been feeling in the past week.
+          important part in your overall health. Knowing more about how you feel
+          will ensure that we are able to help you as effectively as possible.
+          Read each item and tick the box that comes closest to how you have
+          been feeling in the past week.
         </p>
         <p class="mb-5">
           Don’t take too long over your replies; your immediate reaction to each
@@ -114,6 +114,7 @@
           <button
             class="bg-yellow-300 py-1 px-2 mb-7 mx-auto text-lg flex items-center"
             type="submit"
+            disabled={submitting}
           >
             Submit
             {#if submitting}
