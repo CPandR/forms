@@ -108,7 +108,7 @@
     </div>
   {:catch}
     <ErrorPage
-      error_message={"We were unable to find a form linked to this address. Please contact your cardiac coach if this problem persists."}
+      error_message={"We were unable to find a form linked to this URL. Please contact your cardiac coach if this problem persists."}
     />
   {/await}
 {/if}
