@@ -1,0 +1,22 @@
+<div class="error w-full flex flex-col items-center">
+  <div class="text-5xl mb-4">Uh oh!</div>
+  <p class="description">
+    It looks like you've taken a wrong turn. If you were expecting to submit a
+    form, please try following the link sent via email again or contact your
+    Cardiac Coach.
+  </p>
+</div>
+
+<style>
+  .error {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .description {
+    max-width: 800px;
+  }
+</style>
