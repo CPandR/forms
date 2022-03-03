@@ -2,18 +2,22 @@ export const exe_form = [
   {
     title: "How confident do you feel about exercising?",
     options: ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title: "How would you rate your overall general confidence level?",
     options: ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title: "How would you rate your current overall health?",
     options: ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title: "How much of your time do you focus specifically on your health?",
     options: ["All", "A lot", "Some", "Not Much", "None"],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title:
@@ -25,20 +29,24 @@ export const exe_form = [
       "Light e.g. Medium pace walk",
       "Very Light e.g. Slow walk or less",
     ],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title:
       "When walking up stairs, how many flights could you do continuously before feeling out of breath?",
     options: ["4 or more", "3", "2", "1", "None"],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title:
       "How much are you bothered by stress, emotional problems such as feeling anxious, depressed, irritable or sad?",
     options: ["Not at all", "Slightly", "Moderate", "Quite a bit", "Extremely"],
+    scores: [5, 4, 3, 2, 1],
   },
   {
     title:
       "Does your physical or emotional health limit your social activities with family and friends?",
     options: ["Not at all", "Slightly", "Moderate", "Quite a bit", "Extremely"],
+    scores: [5, 4, 3, 2, 1],
   },
 ];

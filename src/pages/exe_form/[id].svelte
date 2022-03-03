@@ -44,14 +44,13 @@
       }),
     })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           show_success = true;
         } else {
           throw new Error(response.statusText);
         }
       })
       .catch(() => {
-        // create new error toast
         new ErrorNotification({
           target: document.body,
           props: {
@@ -89,13 +88,13 @@
       </div>
 
       <form on:submit|preventDefault={submit}>
-        {#each exe_form as question, x}
-          <div class="mb-7" aria-label="radiogroup">
-            <h2 class="text-2xl font-bold">{question.title}</h2>
-            {#each question.options as option, y}
+        {#each exe_form as { title, options, scores }, x}
+          <div class="mb-7">
+            <h2 class="text-2xl font-bold">{title}</h2>
+            {#each options as option, y}
               <RadioInput
-                name={question.title}
-                value={y}
+                name={title}
+                value={scores[y]}
                 bind:group={form_responses[`q${x + 1}`]}
                 label={option}
               />

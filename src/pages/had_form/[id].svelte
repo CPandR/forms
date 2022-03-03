@@ -46,14 +46,13 @@
       }),
     })
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           show_success = true;
         } else {
           throw new Error(response.statusText);
         }
       })
       .catch(() => {
-        // create new error toast
         new ErrorNotification({
           target: document.body,
           props: {
@@ -90,20 +89,19 @@
         </p>
       </div>
       <form on:submit|preventDefault={submit}>
-        {#each had_form as { title, options, score }, x}
+        {#each had_form as { title, options, scores }, x}
           <div class="mb-7">
             <h2 class="text-2xl font-bold">{title}</h2>
             {#each options as option, y}
               <RadioInput
                 name={title}
-                value={score[y]}
+                value={scores[y]}
                 bind:group={form_responses[`q${x + 1}`]}
                 label={option}
               />
             {/each}
           </div>
         {/each}
-
         <SubmitButton {submitting} />
       </form>
     </div>
