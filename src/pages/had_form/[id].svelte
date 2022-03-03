@@ -90,19 +90,20 @@
         </p>
       </div>
       <form on:submit|preventDefault={submit}>
-        {#each had_form as question, x}
+        {#each had_form as { title, options, score }, x}
           <div class="mb-7">
-            <h2 class="text-2xl font-bold">{question.title}</h2>
-            {#each question.options as option, y}
+            <h2 class="text-2xl font-bold">{title}</h2>
+            {#each options as option, y}
               <RadioInput
-                name={question.title}
-                value={y}
+                name={title}
+                value={score[y]}
                 bind:group={form_responses[`q${x + 1}`]}
                 label={option}
               />
             {/each}
           </div>
         {/each}
+
         <SubmitButton {submitting} />
       </form>
     </div>
