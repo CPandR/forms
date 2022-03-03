@@ -7,6 +7,7 @@ export const had_form = [
       "Occasionally",
       "Not at all",
     ],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I still enjoy the things I used to enjoy",
@@ -16,6 +17,7 @@ export const had_form = [
       "Only a little",
       "Hardly at all",
     ],
+    score: [0, 1, 2, 3],
   },
   {
     title:
@@ -26,6 +28,7 @@ export const had_form = [
       "A little, but it doesn’t worry me",
       "Not at all",
     ],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I can laugh and see the funny side of things",
@@ -35,6 +38,7 @@ export const had_form = [
       "Definitely not so much now",
       "Not at all",
     ],
+    score: [0, 1, 2, 3],
   },
   {
     title: "Worrying thoughts go through my mind",
@@ -44,23 +48,28 @@ export const had_form = [
       "From time to time",
       "Only occasionally",
     ],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I feel cheerful",
     options: ["Not at all", "Not often", "Sometimes", "Most of the time"],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I can sit at ease and feel relaxed",
     options: ["Definitely", "Usually", "Not often", "Not at all"],
+    score: [0, 1, 2, 3],
   },
   {
     title: "I feel as if I am slowed down",
     options: ["All the time", "Often", "Sometimes", "Not at all"],
+    score: [3, 2, 1, 0],
   },
   {
     title:
       "I get a sort of frightened feeling like “butterflies” in the stomach",
     options: ["Not at all", "Occasionally", "Quite often", "All the time"],
+    score: [0, 1, 2, 3],
   },
   {
     title: "I have lost interest and put less effort into my appearance",
@@ -70,10 +79,12 @@ export const had_form = [
       "Sometimes",
       "I take just as much care as ever",
     ],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I feel restless as if I have to be on the move",
     options: ["Very much indeed", "Quite a lot", "Not very much", "Not at all"],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I look forward with enjoyment to things",
@@ -83,13 +94,16 @@ export const had_form = [
       "Definitely less than I used to",
       "Hardly at all",
     ],
+    score: [0, 1, 2, 3],
   },
   {
     title: "I get sudden feelings of panic",
     options: ["All the time", "Quite often", "Not very often", "Not at all"],
+    score: [3, 2, 1, 0],
   },
   {
     title: "I can relax and enjoy a good book or radio or TV programme",
     options: ["Often", "Sometimes", "Not often", "Rarely"],
+    score: [0, 1, 2, 3],
   },
 ];
