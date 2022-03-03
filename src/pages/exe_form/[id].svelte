@@ -57,7 +57,7 @@
           target: document.body,
           props: {
             error_message:
-              "There was an error submitting your form. Please contact your cardiac coach if this error persists.",
+              "There was an error submitting your form. Please contact your Cardiac Coach if this error persists.",
           },
         });
       })
@@ -108,7 +108,7 @@
     </div>
   {:catch}
     <ErrorPage
-      error_message={"We were unable to find a form linked to this URL. Please contact your cardiac coach if this problem persists."}
+      error_message={"We were unable to find a form linked to this URL. Please contact your Cardiac Coach if this problem persists."}
     />
   {/await}
 {/if}
