@@ -18,10 +18,12 @@
 
   const validateID = (async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_PROD}/validate_user/${id}`
+      `${import.meta.env.VITE_PROD}/validate_exe_link/${id}`
     );
     if (response.status === 202) {
       return true;
+    } else if (response.status === 409) {
+      show_success = true;
     } else {
       throw new Error();
     }
