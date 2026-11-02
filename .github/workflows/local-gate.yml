@@ -1,0 +1,35 @@
+name: Local gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: local-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: read
+
+jobs:
+  local-ci:
+    name: Local suite passed (ci/local)
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Wait for ci/local on the head commit
+        run: |
+          for attempt in $(seq 1 12); do
+            state="$(gh api "repos/$GITHUB_REPOSITORY/commits/$SHA/status" \
+              --jq '[.statuses[] | select(.context == "ci/local")][0].state // "missing"')"
+            echo "ci/local on ${SHA:0:12}: $state"
+            [ "$state" = "success" ] && exit 0
+            sleep 10
+          done
+          echo "::error::No ci/local success on ${SHA:0:12}. Use the ship skill, or run: bash scripts/ci-local.sh run --post (after pushing)"
+          exit 1

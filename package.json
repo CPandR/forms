@@ -8,7 +8,11 @@
         "preview": "vite preview",
         "build": "run-s build:*",
         "build:routify": "routify -b",
-        "build:vite": "vite build"
+        "build:vite": "vite build",
+        "check": "npm run build",
+        "ci:local": "bash scripts/ci-local.sh run",
+        "ci:local:check": "bash scripts/ci-local.sh check",
+        "ci:local:post": "bash scripts/ci-local.sh post"
     },
     "devDependencies": {
         "@roxi/routify": "^2.18.4",
