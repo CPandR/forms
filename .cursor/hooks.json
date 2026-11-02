@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "node scripts/agent-hooks/require-local-ci.cjs"
+      }
+    ]
+  }
+}

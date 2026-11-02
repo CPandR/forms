@@ -1,0 +1,93 @@
+# Agent instructions for CP+R Forms
+
+This file is the single source of truth for AI coding agents (Claude Code, Codex, Cursor). `CLAUDE.md` imports it; do not duplicate content into tool-specific files.
+
+## Repo layout
+
+This is the public patient questionnaire site. It serves two forms that patients reach from emailed links and the mobile app, and it posts answers to The Hub's `/api/forms` API (`CPandR/The-Hub`, `server/api/forms.js`):
+
+- `/had_form/:id`: the Hospital Anxiety and Depression (HAD) scale
+- `/exe_form/:id`: the Exercise + Confidence form
+
+These paths are part of a contract with emails already sent and with the mobile app. Never rename or remove them.
+
+The app is currently Svelte 3, Routify 2 and Vite 2, hosted on Netlify. A rewrite to React and a move to Heroku is in progress. Use Node 22 (`.nvmrc`) and npm.
+
+This repository is public. Never commit secrets, `.env` files or patient data.
+
+## Commands
+
+| What | Command |
+|---|---|
+| Local gate before a PR (runs `check`) | `bash scripts/ci-local.sh run` |
+| Everything the gate runs | `npm run check` |
+| Dev server | `npm run dev` |
+| Build | `npm run build` |
+
+## Merge rules (mandatory)
+
+This repo has no server-side branch protection, so these rules are the guardrail:
+
+1. Never commit or push directly to `main`. Work on a branch and open a PR.
+2. Before a PR is opened for review, the local gate must pass on its head commit (see "Opening pull requests").
+3. Merge only after every GitHub check is green (`gh pr checks <number> --watch`).
+4. If CI fails, fix it on the branch. Never delete or weaken a check to get to green.
+
+Commit messages use Conventional Commits, for example `feat(forms): …`.
+
+## Opening pull requests (mandatory)
+
+GitHub Actions only runs fast checks on pull requests. The full suite, which is everything in this repo's `check` script, runs on your machine before a PR is opened for review. The `ci/local` commit status records that it passed. The `Local gate` workflow fails any non-draft PR whose head commit has no `ci/local` success.
+
+1. Commit all changes. The gate refuses a dirty tree.
+2. `bash scripts/ci-local.sh run`
+3. `git push -u origin HEAD`
+4. `bash scripts/ci-local.sh post`
+5. `gh pr create`, or `gh pr ready <number>` for a draft.
+
+The `ship` skill does all of this. Repeat steps 2 to 4 for every new commit pushed to an open PR. Draft PRs skip both the gate and remote CI.
+
+Rules:
+- Never post the status without a passing run.
+- Never weaken, skip or delete a test or check to get to green.
+- To gate a PR you did not write, such as a Dependabot PR: `gh pr checkout <number> && bash scripts/ci-local.sh run --post`, then re-run its `Local gate` check.
+
+What `ci-local.sh run` does:
+- Requires the Node major version in `.nvmrc`.
+- Reinstalls from each tracked lockfile when that lockfile has changed (`npm ci`, `yarn install --frozen-lockfile`).
+- Runs `check` with `CI=true TZ=UTC LC_ALL=en_US.UTF-8`, with the Sentry upload variables unset.
+- Records the pass against the commit SHA in the shared git directory, so every worktree sees it.
+
+## Testing standard (all CP+R repos)
+
+| Layer | Libraries |
+|---|---|
+| Node backends | Vitest + supertest. Mock models and external services at the module level; no test may need a real database or network. |
+| Web frontends (Vite) | Vitest + @testing-library/react + jsdom for units and components; Playwright for browser end-to-end tests |
+| Expo / React Native apps | Jest + jest-expo + @testing-library/react-native; Maestro for on-device flows (local only, not part of the gate) |
+
+Conventions:
+- Pin Node in `.nvmrc` (22).
+- The `test` script runs once and never watches. Use `test:watch` for watch mode.
+- Tests live next to the code in `__tests__/` folders.
+- Every repo has a `check` script that runs the whole local gate.
+- Add tests for meaningful logic, especially auth, permissions and money-adjacent code. Do not add placeholder or trivial tests.
+
+## Shared agent tooling
+
+These files are identical in every CP+R repo, and The Hub (`CPandR/The-Hub`) holds the master copy. Change them there first, then copy the change to the other repos.
+
+| File | Purpose |
+|---|---|
+| `scripts/ci-local.sh` | The local gate (`run`, `check`, `post`) |
+| `scripts/agent-hooks/require-local-ci.cjs` | Blocks opening a ready PR until HEAD has passed locally |
+| `.claude/settings.json`, `.codex/hooks.json`, `.cursor/hooks.json` | Run that hook before shell commands in Claude Code, Codex and Cursor |
+| `.agents/skills/ship/SKILL.md` | The `ship` skill. Codex and Cursor read `.agents/skills`; `.claude/skills/ship` is a symlink to it for Claude Code. |
+| `.github/workflows/local-gate.yml` | Fails a ready PR whose head commit has no `ci/local` success |
+
+Codex only runs project hooks for trusted projects. Trust the repo, then approve the hook with `/hooks`. Edit skills at their real path under `.agents/skills`, not through the `.claude/skills` symlink.
+
+## Testing in this repo
+
+- Known gaps against the standard: the Svelte app has no lint, type-check or tests, so `check` only runs the build. The React rewrite adds them along with a CI workflow.
+- Routify 2 cannot generate routes on Node 22: `npm run build` still exits 0 but produces a bundle stuck on "Generating routes...". Do not deploy a Node 22 build of the Svelte app.
