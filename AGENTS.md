@@ -4,21 +4,14 @@ This file is the single source of truth for AI coding agents (Claude Code, Codex
 
 ## Repo layout
 
-This is the public patient questionnaire site. It serves two forms that patients reach from emailed links and the mobile app, and it posts answers to The Hub's `/api/forms` API (`CPandR/The-Hub`, `server/api/forms.js`):
+This repository is archived. The HADS and Exercise + Confidence forms now live in The Clubhouse (`CPandR/the-clubhouse`) at `https://athletes.cpandr.co.uk/had_form/:id` and `/exe_form/:id`. Make form changes there, not here.
 
-- `/had_form/:id`: the Hospital Anxiety and Depression (HAD) scale
-- `/exe_form/:id`: the Exercise + Confidence form
-
-These paths are part of a contract with emails already sent and with the mobile app. Never rename or remove them.
+What remains is the old React app, kept for reference, and `deploy/netlify-redirect/`, a one-file Netlify site that 301s every old `cpandrforms.netlify.app` URL to `https://athletes.cpandr.co.uk`. It is deployed by hand (see `README.md`) and is not part of the build. There is no hosting for the app itself.
 
 The app is React 19, TypeScript, Vite, react-router 7 (declarative mode) and Tailwind 4, with source in `src/`. Use Node 22 (`.nvmrc`) and npm.
 
 - `src/forms/`: one `FormDefinition` per questionnaire (`had.ts`, `exe.ts`), holding the questions, answer scores, copy and API endpoints, plus the API client (`api.ts`) and scoring (`scale.ts`).
-- `src/pages/QuestionnairePage.tsx`: renders any `FormDefinition`. To add a form, add a definition and a route in `src/App.tsx`; do not copy the page.
-- `server/`: the Express 5 static server Heroku runs (`npm start`). It serves `dist/` with SPA fallback, `/healthz`, an HTTPS redirect, security headers and long-lived caching for hashed `/assets/*`.
-- `VITE_API_URL` is The Hub's forms API base, for example `http://localhost:5001/api/forms` (see `.env.example`). It is baked in at build time, so set it as a Heroku config var before building.
-
-Hosting is Heroku (`Procfile`, `heroku-postbuild` runs the build). `deploy/netlify-redirect/` is a one-file Netlify site that 301s the old `cpandrforms.netlify.app` URLs to Heroku; it is deployed by hand at cutover and is not part of the build.
+- `src/pages/QuestionnairePage.tsx`: renders any `FormDefinition`.
 
 This repository is public. Never commit secrets, `.env` files or patient data.
 
@@ -34,7 +27,6 @@ This repository is public. Never commit secrets, `.env` files or patient data.
 | Tests in watch mode | `npm run test:watch` |
 | Dev server (port 5173) | `npm run dev` |
 | Build | `npm run build` |
-| Serve the build like Heroku | `npm run build && PORT=5055 npm start` |
 
 ## Merge rules (mandatory)
 
@@ -42,7 +34,7 @@ This repo has no server-side branch protection, so these rules are the guardrail
 
 1. Never commit or push directly to `main`. Work on a branch and open a PR.
 2. Before a PR is opened for review, the local gate must pass on its head commit (see "Opening pull requests").
-3. Merge only after every GitHub check is green (`gh pr checks <number> --watch`). A merge to `main` deploys once Heroku auto-deploys are enabled.
+3. Merge only after every GitHub check is green (`gh pr checks <number> --watch`).
 4. If CI fails, fix it on the branch. Never delete or weaken a check to get to green.
 
 Commit messages use Conventional Commits, for example `feat(forms): …`.
@@ -101,9 +93,7 @@ Codex only runs project hooks for trusted projects. Trust the repo, then approve
 
 ## Testing in this repo
 
-- Web tests live in `src/**/__tests__/` and run under Vitest with jsdom, @testing-library/react and jest-dom (`src/test/setup.ts`). They stub `fetch` with `vi.stubGlobal`; `VITE_API_URL` is fixed to `https://hub.test/api/forms` in `vite.config.ts`.
-- Server tests live in `server/__tests__/` and run under Vitest's node environment with supertest against a temporary `dist/`.
-- The two environments are Vitest projects (`web` and `server`) in `vite.config.ts`.
+- Tests live in `src/**/__tests__/` and run under Vitest with jsdom, @testing-library/react and jest-dom (`src/test/setup.ts`). They stub `fetch` with `vi.stubGlobal`; `VITE_API_URL` is fixed to `https://hub.test/api/forms` in `vite.config.ts`.
 - The question data and scores are clinical instruments, and The Hub stores answers by key (`q1` to `q14` for HAD, `q1` to `q8` for Exercise + Confidence). Do not reorder questions or change scores without changing The Hub too.
 - jsdom 30 needs Node 22.22 or later; the gate's Node check only compares the major version, so update an older Node 22 first.
 - CI minutes are limited (GitHub free tier). On pull requests, CI runs lint, type-check and tests in one job, plus the `Local gate` check. The build runs in the local gate.
